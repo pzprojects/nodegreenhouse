@@ -18,19 +18,19 @@ app.get("/json", (req, res) => {
 //app.use(express.static(path.join(__dirname, 'client/build')));
 
 // DB Config
-const db = require('./config/keys').mongoURI;
+//const db = require('./config/keys').mongoURI;
 
 // Connect to Mongo
-mongoose
-  .connect(db, { 
-    useNewUrlParser: true,
-    useCreateIndex: true
-  }) // Adding new mongo url parser
-  .then(() => console.log('MongoDB Connected...'))
-  .catch(err => console.log(err));
+// mongoose
+//   .connect(db, { 
+//     useNewUrlParser: true,
+//     useCreateIndex: true
+//   }) // Adding new mongo url parser
+//   .then(() => console.log('MongoDB Connected...'))
+//   .catch(err => console.log(err));
 
 // Use Routes
-app.use('/api/items', require('./routes/api/items'));
+//app.use('/api/items', require('./routes/api/items'));
 
 const port = process.env.PORT || 5000;
 
