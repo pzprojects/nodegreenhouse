@@ -32,7 +32,7 @@ mongoose
   .catch(err => console.log(err));
 
 // Use Routes
-//app.use('/api/items', require('./routes/api/items'));
+app.use('/api/items', require('./routes/api/items'));
 
 const port = process.env.PORT || 5000;
 
