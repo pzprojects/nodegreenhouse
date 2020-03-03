@@ -1,3 +1,5 @@
+require('dotenv').config();
+console.log(process.env.DB);
 const express = require('express');
 const mongoose = require('mongoose');
 const bodyparser = require('body-parser');
@@ -21,16 +23,16 @@ app.get("/json", (req, res) => {
 //const db = require('./config/keys').mongoURI;
 
 // Connect to Mongo
-// mongoose
-//   .connect(db, { 
-//     useNewUrlParser: true,
-//     useCreateIndex: true
-//   }) // Adding new mongo url parser
-//   .then(() => console.log('MongoDB Connected...'))
-//   .catch(err => console.log(err));
+mongoose
+  .connect(process.env.DB, { 
+    useNewUrlParser: true,
+    useCreateIndex: true
+  }) // Adding new mongo url parser
+  .then(() => console.log('MongoDB Connected...'))
+  .catch(err => console.log(err));
 
 // Use Routes
-//app.use('/api/items', require('./routes/api/items'));
+app.use('/api/items', require('./routes/api/items'));
 
 const port = process.env.PORT || 5000;
 
