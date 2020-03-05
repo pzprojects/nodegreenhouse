@@ -1,6 +1,7 @@
   
 const express = require('express');
 const router = express.Router();
+const auth = require('../../middleware/auth');
 
 // Item Model
 const Item = require('../../models/item');
@@ -28,7 +29,7 @@ router.get('/', async (req, res) => {
  * @access  Private
  */
 
-router.post('/', async (req, res) => {
+router.post('/', auth, async (req, res) => {
   const newItem = new Item({
     name: req.body.name
   });
@@ -49,7 +50,7 @@ router.post('/', async (req, res) => {
  * @access  Private
  */
 
-router.delete('/:id', async (req, res) => {
+router.delete('/:id', auth, async (req, res) => {
   try {
     const item = await Item.findById(req.params.id);
     if (!item) throw Error('No item found');
