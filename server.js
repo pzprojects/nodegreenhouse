@@ -17,8 +17,20 @@ app.get("/json", (req, res) => {
  });
 //app.use(express.static(path.join(__dirname, 'client/build')));
 
-// DB Config
-//const db = require('./config/keys').mongoURI;
+app.use(function(req, res, next) {
+  const origin = "http://localhost:3000";
+  res.header("Access-Control-Allow-Origin", origin);
+  res.header(
+    "Access-Control-Allow-Headers",
+    "Origin, X-Requested-With, Content-Type, Accept, X-PINGOTHER"
+  );
+  res.header(
+    "Access-Control-Allow-Methods",
+    "POST, GET, PUT, DELETE, OPTIONS"
+  );
+  res.header("Access-Control-Allow-Credentials", "true");
+  next();
+});
 
 // Connect to Mongo
 mongoose
