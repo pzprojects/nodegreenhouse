@@ -34,7 +34,11 @@ const UserSchema = new Schema({
   },
   aboutme: {
     type: String,
-    required: true
+    required: false
+  },
+  imageurl: {
+    type: String,
+    required: false
   },
   register_date: {
     type: Date,

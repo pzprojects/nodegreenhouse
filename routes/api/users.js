@@ -1,8 +1,8 @@
 const express = require('express');
+const multer = require('multer');
 const router = express.Router();
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
-
 
 // User Model
 const User = require('../../models/User');
@@ -11,7 +11,7 @@ const User = require('../../models/User');
 // @desc    Register new user
 // @access  Public
 router.post('/', (req, res) => {
-  const { name, email, password, familyname, phone, sizearea, hamamasize, aboutme} = req.body;
+  const { name, email, password, familyname, phone, sizearea, hamamasize, aboutme, imageurl} = req.body;
 
   // Simple validation
   if(!name || !email || !password) {
@@ -31,7 +31,8 @@ router.post('/', (req, res) => {
         phone,
         sizearea,
         hamamasize,
-        aboutme
+        aboutme,
+        imageurl
       });
 
       // Create salt & hash
@@ -57,7 +58,8 @@ router.post('/', (req, res) => {
                       phone: user.phone,
                       sizearea: user.sizearea,
                       hamamasize: user.hamamasize,
-                      aboutme: user.aboutme
+                      aboutme: user.aboutme,
+                      imageurl: user.imageurl
                     }
                   });
                 }
