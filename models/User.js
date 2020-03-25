@@ -40,6 +40,23 @@ const UserSchema = new Schema({
     type: String,
     required: false
   },
+  choosenvegetables : [
+    {
+         id: {type : String},
+         name: {type : String},
+         price: {type : String}
+    }
+  ], 
+  plans : [
+    {
+         name: {type : String},
+         cost: {type : String}
+    }
+  ],
+  usertype: {
+    type: String,
+    required: true
+  },
   register_date: {
     type: Date,
     default: Date.now

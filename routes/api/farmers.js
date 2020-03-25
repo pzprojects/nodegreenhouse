@@ -13,7 +13,7 @@ const Farmer = require('../../models/farmer');
 
 router.get('/', async (req, res) => {
   try {
-    const farmers = await farmers.find();
+    const farmers = await Farmer.find();
     if (!farmers) throw Error('No farmers');
 
     res.status(200).json(farmers);
@@ -38,7 +38,9 @@ router.post('/', async (req, res) => {
     sizearea: req.body.sizearea,
     hamamasize: req.body.hamamasize,
     aboutme: req.body.aboutme,
-    imageurl: req.body.imageurl
+    imageurl: req.body.imageurl,
+    choosenvegetables: req.body.choosenvegetables,
+    plans: req.body.plans
   });
 
   try {

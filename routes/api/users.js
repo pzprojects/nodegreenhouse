@@ -11,7 +11,7 @@ const User = require('../../models/User');
 // @desc    Register new user
 // @access  Public
 router.post('/', (req, res) => {
-  const { name, email, password, familyname, phone, sizearea, hamamasize, aboutme, imageurl} = req.body;
+  const { name, email, password, familyname, phone, sizearea, hamamasize, aboutme, imageurl, choosenvegetables, plans, usertype } = req.body;
 
   // Simple validation
   if(!name || !email || !password) {
@@ -32,7 +32,10 @@ router.post('/', (req, res) => {
         sizearea,
         hamamasize,
         aboutme,
-        imageurl
+        imageurl,
+        choosenvegetables,
+        plans,
+        usertype
       });
 
       // Create salt & hash
@@ -59,7 +62,10 @@ router.post('/', (req, res) => {
                       sizearea: user.sizearea,
                       hamamasize: user.hamamasize,
                       aboutme: user.aboutme,
-                      imageurl: user.imageurl
+                      imageurl: user.imageurl,
+                      choosenvegetables: user.choosenvegetables,
+                      plans: user.plans,
+                      usertype: user.usertype,
                     }
                   });
                 }
