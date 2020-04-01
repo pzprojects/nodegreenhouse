@@ -23,6 +23,27 @@ router.get('/', async (req, res) => {
 });
 
 /**
+ * @route   GET api/farmers/:sizearea?/:plan?
+ * @desc    Get farmers by sizearea and plan
+ * @access  Public
+ */
+
+router.get('/:sizearea?/:plan?', async (req, res) => {
+  try {
+    var query = { sizearea: req.params.sizearea };
+    var farmers = await Farmer.find(query);
+    if(req.params.plan !== null && req.params.plan !== '' && req.params.plan !== undefined && req.params.plan !== "undefined"){
+      farmers = await farmers.filter(farmerUser => farmerUser.plans.some(item => item.name === req.params.plan));
+    }
+    if (!farmers) throw Error('No farmers');
+
+    res.status(200).json(farmers);
+  } catch (e) {
+    res.status(400).json({ msg: e.message });
+  }
+});
+
+/**
  * @route   POST api/farmers
  * @desc    Create An Farmer
  * @access  Private

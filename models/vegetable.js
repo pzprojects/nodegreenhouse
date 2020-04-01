@@ -11,6 +11,14 @@ const vegetableSchema = new Schema({
     type: String,
     required: true
   },
+  averagecrop: {
+    type: String,
+    required: true
+  },
+  amount: {
+    type: String,
+    required: true
+  },
   date: {
     type: Date,
     default: Date.now
