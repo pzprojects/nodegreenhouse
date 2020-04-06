@@ -40,7 +40,18 @@ router.post('/', (req, res) => {
                 user: {
                   id: user.id,
                   name: user.name,
-                  email: user.email
+                  email: user.email,
+                  familyname: user.familyname,
+                  phone: user.phone,
+                  sizearea: user.sizearea,
+                  hamamasize: user.hamamasize,
+                  aboutme: user.aboutme,
+                  imageurl: user.imageurl,
+                  choosenvegetables: user.choosenvegetables,
+                  plans: user.plans,
+                  usertype: user.usertype,
+                  workingwith: user.workingwith,
+                  address: user.address
                 }
               });
             }

@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 // Create Schema
-const UserSchema = new Schema({
+const GrowerSchema = new Schema({
   name: {
     type: String,
     required: true
@@ -20,21 +20,12 @@ const UserSchema = new Schema({
     required: true,
     unique: true
   },
-  password: {
-    type: String,
-    required: true
-  },
   sizearea: {
     type: String,
     required: true
   },
-  hamamasize: {
-    type: String,
-    required: true
-  },
-  aboutme: {
-    type: String,
-    required: false
+  address: {
+    type: String
   },
   imageurl: {
     type: String,
@@ -49,30 +40,19 @@ const UserSchema = new Schema({
          amount: {type : String}
     }
   ], 
-  plans : [
+  plan: 
     {
          name: {type : String},
          cost: {type : String}
-    }
-  ],
-  usertype: {
-    type: String,
-    required: true
+    }, 
+  chossenfarmer: {
+      type : String
   },
-  workingwith : [
-    {
-         email: {type : String},
-         usertype: {type : String},
-         active: {type : Boolean},
-         totalpayed: {type : String},
-         activation_date: {
-           type: Date,
-           default: Date.now
-         }
-    }
-  ],
-  address: {
-    type: String
+  totalpayment: {
+    type : String
+  },
+  isactive: {
+    type : Boolean
   },
   register_date: {
     type: Date,
@@ -80,4 +60,4 @@ const UserSchema = new Schema({
   }
 });
 
-module.exports = User = mongoose.model('user', UserSchema);
+module.exports = Grower = mongoose.model('grower', GrowerSchema);
