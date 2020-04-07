@@ -38,6 +38,8 @@ app.use('/api/farmers', require('./routes/api/farmers'));
 app.use('/api/growers', require('./routes/api/growers'));
 app.use('/api/updategroweruser', require('./routes/api/updategroweruser'));
 app.use('/api/updategrower', require('./routes/api/updategrower'));
+app.use('/api/deactivateuser', require('./routes/api/deactivateuser'));
+app.use('/api/deactivategrower', require('./routes/api/deactivategrower'));
 
 const port = process.env.PORT || 5000;
 
