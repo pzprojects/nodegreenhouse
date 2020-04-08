@@ -78,4 +78,4 @@ app.get('/generate-put-url', (req,res)=>{
 });
 
 
-app.listen(port, () => console.log(`Server2 started on port ${port}`));
+app.listen(port, () => console.log(`Server started on port ${port}`));
