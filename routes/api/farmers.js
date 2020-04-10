@@ -58,6 +58,7 @@ router.post('/', async (req, res) => {
     email: req.body.email,
     sizearea: req.body.sizearea,
     hamamasize: req.body.hamamasize,
+    numberofactivefarms: req.body.numberofactivefarms,
     aboutme: req.body.aboutme,
     imageurl: req.body.imageurl,
     choosenvegetables: req.body.choosenvegetables,

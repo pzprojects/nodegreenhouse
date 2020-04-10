@@ -28,6 +28,9 @@ const FarmerSchema = new Schema({
     type: String,
     required: true
   },
+  numberofactivefarms: {
+    type: String
+  },
   aboutme: {
     type: String,
     required: false

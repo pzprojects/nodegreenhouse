@@ -40,6 +40,10 @@ app.use('/api/updategroweruser', require('./routes/api/updategroweruser'));
 app.use('/api/updategrower', require('./routes/api/updategrower'));
 app.use('/api/deactivateuser', require('./routes/api/deactivateuser'));
 app.use('/api/deactivategrower', require('./routes/api/deactivategrower'));
+app.use('/api/updatefarmeractivefarms', require('./routes/api/updatefarmeractivefarms'));
+app.use('/api/updateruseractivefarms', require('./routes/api/updateruseractivefarms'));
+app.use('/api/updatefarmeruser', require('./routes/api/updatefarmeruser'));
+app.use('/api/updatefarmer', require('./routes/api/updatefarmer'));
 
 const port = process.env.PORT || 5000;
 

@@ -23,6 +23,24 @@ router.get('/', async (req, res) => {
 });
 
 /**
+ * @route   GET api/growers/:email
+ * @desc    Get farmer growers
+ * @access  Public
+ */
+
+router.get('/:email', async (req, res) => {
+  try {
+    var query = { chossenfarmer: req.params.email };
+    const growers = await Grower.find(query);
+    if (!growers) throw Error('No growers');
+
+    res.status(200).json(growers);
+  } catch (e) {
+    res.status(400).json({ msg: e.message });
+  }
+});
+
+/**
  * @route   POST api/growers
  * @desc    Create An grower
  * @access  Private

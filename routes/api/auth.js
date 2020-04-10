@@ -45,6 +45,7 @@ router.post('/', (req, res) => {
                   phone: user.phone,
                   sizearea: user.sizearea,
                   hamamasize: user.hamamasize,
+                  numberofactivefarms: user.numberofactivefarms,
                   aboutme: user.aboutme,
                   imageurl: user.imageurl,
                   choosenvegetables: user.choosenvegetables,
