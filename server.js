@@ -24,7 +24,8 @@ app.get("/json", (req, res) => {
 mongoose
   .connect(process.env.DB, { 
     useNewUrlParser: true,
-    useCreateIndex: true
+    useCreateIndex: true,
+    useUnifiedTopology: true
   }) // Adding new mongo url parser
   .then(() => console.log('MongoDB Connected...'))
   .catch(err => console.log(err));
