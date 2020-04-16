@@ -19,6 +19,13 @@ const vegetableSchema = new Schema({
     type: String,
     required: true
   },
+  numberofveginrow: {
+    type: String
+  },
+  moreinfolink: {
+    type: String,
+    required: true
+  },
   date: {
     type: Date,
     default: Date.now

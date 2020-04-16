@@ -45,7 +45,9 @@ const FarmerSchema = new Schema({
          name: {type : String},
          price: {type : String},
          averagecrop: {type : String},
-         amount: {type : String}
+         amount: {type : String},
+         numberofveginrow: {type : String},
+         moreinfolink: {type : String}
     }
   ], 
   plans : [
