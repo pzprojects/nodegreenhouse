@@ -14,7 +14,7 @@ const vegetable = require('../../models/vegetable');
 router.get('/', async (req, res) => {
   try {
     const vegetables = await vegetable.find();
-    if (!vegetables) throw Error('No vegetables');
+    if (!vegetables) throw Error('לא נמצאו ירקות');
 
     res.status(200).json(vegetables);
   } catch (e) {
@@ -30,12 +30,17 @@ router.get('/', async (req, res) => {
 
 router.post('/', auth, async (req, res) => {
   const newvegetable = new vegetable({
-    name: req.body.name
+    name: req.body.name,
+    price: req.body.price,
+    averagecrop: req.body.averagecrop,
+    amount: req.body.amount,
+    numberofveginrow: req.body.numberofveginrow,
+    moreinfolink: req.body.moreinfolink
   });
 
   try {
     const vegetable = await newvegetable.save();
-    if (!vegetable) throw Error('Something went wrong saving the vegetable');
+    if (!vegetable) throw Error('תקלה בעת שמירת הירק');
 
     res.status(200).json(vegetable);
   } catch (e) {
@@ -51,12 +56,12 @@ router.post('/', auth, async (req, res) => {
 
 router.delete('/:id', auth, async (req, res) => {
   try {
-    const vegetable = await vegetable.findById(req.params.id);
-    if (!vegetable) throw Error('No vegetable found');
+    const vegetabletodelete = await vegetable.findById(req.params.id);
+    if (!vegetabletodelete) throw Error('הירק לא קיים');
 
-    const removed = await vegetable.remove();
+    const removed = await vegetabletodelete.remove();
     if (!removed)
-      throw Error('Something went wrong while trying to delete the vegetable');
+      throw Error('תקלה בעת מחיקת הירק');
 
     res.status(200).json({ success: true });
   } catch (error) {

@@ -45,6 +45,8 @@ app.use('/api/updatefarmeractivefarms', require('./routes/api/updatefarmeractive
 app.use('/api/updateruseractivefarms', require('./routes/api/updateruseractivefarms'));
 app.use('/api/updatefarmeruser', require('./routes/api/updatefarmeruser'));
 app.use('/api/updatefarmer', require('./routes/api/updatefarmer'));
+app.use('/api/updateveg', require('./routes/api/updateveg'));
+app.use('/api/systemconfig', require('./routes/api/systemconfig'));
 
 const port = process.env.PORT || 5000;
 
