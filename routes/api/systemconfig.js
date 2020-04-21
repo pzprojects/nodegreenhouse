@@ -14,8 +14,8 @@ const System = require('../../models/system');
 
 router.get('/', async (req, res) => {
     try {
-      const system = await System.find();
-      if (!system) throw Error('לא נמצאו ירקות');
+      const system = await System.findOne();
+      if (!system) throw Error('לא נמצאו נתוני מערכת');
   
       res.status(200).json(system);
     } catch (e) {
@@ -24,7 +24,7 @@ router.get('/', async (req, res) => {
 });
 
 // @route   POST api/systemconfig/:id
-// @desc    Update system
+// @desc    Update systemconfig
 // @access  Public
 router.post('/:id', auth, (req, res) => {
   const { hamamadefaultsize } = req.body;
@@ -33,7 +33,7 @@ router.post('/:id', auth, (req, res) => {
 
     try {
 
-      if (!system) throw Error('No system data found');
+      if (!system) throw Error('לא נמצאו נתוני מערכת');
 
       // validate 
       if (!hamamadefaultsize ) throw Error('One or more fields are empty');
@@ -42,7 +42,7 @@ router.post('/:id', auth, (req, res) => {
       system.hamamadefaultsize = hamamadefaultsize;
 
       system.save();
-      if (!system) throw Error('Something went wrong updating the system');
+      if (!system) throw Error('תקלה בעת עדכון נתוני מערכת');
   
       res.status(200).json(system);
     } catch (e) {
