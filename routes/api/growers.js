@@ -59,6 +59,7 @@ router.post('/', async (req, res) => {
     choosenvegetables: req.body.choosenvegetables,
     plan: req.body.plan,
     chossenfarmer: req.body.chossenfarmer,
+    chossenfarmerfullname: req.body.chossenfarmerfullname,
     totalpayment: req.body.totalpayment,
     isactive: req.body.isactive
   });

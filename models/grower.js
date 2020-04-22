@@ -50,6 +50,9 @@ const GrowerSchema = new Schema({
   chossenfarmer: {
       type : String
   },
+  chossenfarmerfullname: {
+    type : String
+  },
   totalpayment: {
     type : String
   },

@@ -56,6 +56,9 @@ const FarmerSchema = new Schema({
          cost: {type : String}
     }
   ], 
+  address: {
+    type: String
+  },
   register_date: {
     type: Date,
     default: Date.now
