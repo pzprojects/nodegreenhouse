@@ -65,6 +65,8 @@ router.post('/', async (req, res) => {
   });
 
   try {
+    Grower.findOne({ email: req.body.email }).then(grower => {if(grower) throw Error('Grower already exists')});
+
     const grower = await newgrower.save();
     if (!grower) throw Error('Something went wrong saving the grower');
 

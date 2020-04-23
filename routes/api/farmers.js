@@ -67,6 +67,8 @@ router.post('/', async (req, res) => {
   });
 
   try {
+    Farmer.findOne({ email: req.body.email }).then(farmer => {if(farmer) throw Error('Farmer already exists')});
+
     const farmer = await newfarmer.save();
     if (!farmer) throw Error('Farmer went wrong saving the farmer');
 
