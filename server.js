@@ -25,7 +25,8 @@ mongoose
   .connect(process.env.DB, { 
     useNewUrlParser: true,
     useCreateIndex: true,
-    useUnifiedTopology: true
+    useUnifiedTopology: true,
+    useFindAndModify: false
   }) // Adding new mongo url parser
   .then(() => console.log('MongoDB Connected...'))
   .catch(err => console.log(err));
@@ -47,6 +48,8 @@ app.use('/api/updatefarmeruser', require('./routes/api/updatefarmeruser'));
 app.use('/api/updatefarmer', require('./routes/api/updatefarmer'));
 app.use('/api/updateveg', require('./routes/api/updateveg'));
 app.use('/api/systemconfig', require('./routes/api/systemconfig'));
+app.use('/api/sendresetpasswordmail', require('./routes/api/sendresetpasswordmail'));
+app.use('/api/receiveNewPassword', require('./routes/api/receiveNewPassword'));
 
 const port = process.env.PORT || 5000;
 
