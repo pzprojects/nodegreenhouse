@@ -50,6 +50,9 @@ app.use('/api/updateveg', require('./routes/api/updateveg'));
 app.use('/api/systemconfig', require('./routes/api/systemconfig'));
 app.use('/api/sendresetpasswordmail', require('./routes/api/sendresetpasswordmail'));
 app.use('/api/receiveNewPassword', require('./routes/api/receiveNewPassword'));
+app.use('/api/ResetGrowerUserName', require('./routes/api/ResetGrowerUserName'));
+app.use('/api/ResetUserName', require('./routes/api/ResetUserName'));
+
 
 const port = process.env.PORT || 5000;
 
