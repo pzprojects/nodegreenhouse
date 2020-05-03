@@ -9,7 +9,7 @@ const Farmer = require('../../models/farmer');
 // @desc    Update farmer
 // @access  Public
 router.post('/:email', auth, (req, res) => {
-  const { name, familyname, phone, hamamasize, numberofactivefarms, imageurl, aboutme, choosenvegetables } = req.body;
+  const { name, familyname, phone, hamamasize, numberofactivefarms, imageurl, aboutme, choosenvegetables, choosenfieldcrops } = req.body;
 
   Farmer.findOne({email: req.params.email}, function (err, farmer) {
 
@@ -29,6 +29,7 @@ router.post('/:email', auth, (req, res) => {
       farmer.imageurl = imageurl;
       farmer.aboutme = aboutme;
       farmer.choosenvegetables = choosenvegetables;
+      farmer.choosenfieldcrops = choosenfieldcrops;
 
       farmer.save();
       if (!farmer) throw Error('Something went wrong saving the farmer');

@@ -49,7 +49,18 @@ const FarmerSchema = new Schema({
          numberofveginrow: {type : String},
          moreinfolink: {type : String}
     }
-  ], 
+  ],
+  choosenfieldcrops : [
+    {
+         _id: {type : String},
+         name: {type : String},
+         price: {type : String},
+         averagecrop: {type : String},
+         amount: {type : String},
+         numberofveginrow: {type : String},
+         moreinfolink: {type : String}
+    }
+  ],
   plans : [
     {
          name: {type : String},
@@ -59,6 +70,11 @@ const FarmerSchema = new Schema({
   address: {
     type: String
   },
+  fieldcropplan: 
+    {
+         avaliabile: {type : Boolean},
+         cost: {type : String}
+    },
   register_date: {
     type: Date,
     default: Date.now

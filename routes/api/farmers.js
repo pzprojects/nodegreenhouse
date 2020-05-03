@@ -62,8 +62,10 @@ router.post('/', async (req, res) => {
     aboutme: req.body.aboutme,
     imageurl: req.body.imageurl,
     choosenvegetables: req.body.choosenvegetables,
+    choosenfieldcrops: req.body.choosenfieldcrops,
     plans: req.body.plans,
-    address: req.body.address
+    address: req.body.address,
+    fieldcropplan: req.body.fieldcropplan
   });
 
   try {

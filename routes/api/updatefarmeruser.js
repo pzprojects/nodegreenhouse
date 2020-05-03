@@ -9,7 +9,7 @@ const User = require('../../models/User');
 // @desc    Update user
 // @access  Public
 router.post('/:id', auth, (req, res) => {
-  const { name, familyname, phone, hamamasize, numberofactivefarms, imageurl, aboutme, choosenvegetables } = req.body;
+  const { name, familyname, phone, hamamasize, numberofactivefarms, imageurl, aboutme, choosenvegetables, choosenfieldcrops } = req.body;
 
   User.findById(req.params.id, function (err, user) {
 
@@ -29,6 +29,7 @@ router.post('/:id', auth, (req, res) => {
       user.imageurl = imageurl;
       user.aboutme = aboutme;
       user.choosenvegetables = choosenvegetables;
+      user.choosenfieldcrops = choosenfieldcrops;
 
       user.save();
       if (!user) throw Error('Something went wrong saving the user');

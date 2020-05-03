@@ -41,6 +41,17 @@ const GrowerSchema = new Schema({
          numberofveginrow: {type : String},
          moreinfolink: {type : String}
     }
+  ],
+  choosenfieldcrops : [
+    {
+         _id: {type : String},
+         name: {type : String},
+         price: {type : String},
+         averagecrop: {type : String},
+         amount: {type : String},
+         numberofveginrow: {type : String},
+         moreinfolink: {type : String}
+    }
   ], 
   plan: 
     {
@@ -59,6 +70,11 @@ const GrowerSchema = new Schema({
   isactive: {
     type : Boolean
   },
+  fieldcropplan: 
+    {
+         avaliabile: {type : Boolean},
+         cost: {type : String}
+    },
   register_date: {
     type: Date,
     default: Date.now

@@ -10,7 +10,7 @@ const User = require('../../models/User');
 // @desc    Register new user
 // @access  Public
 router.post('/', (req, res) => {
-  const { name, email, password, familyname, phone, sizearea, hamamasize, numberofactivefarms, aboutme, imageurl, choosenvegetables, plans, usertype, workingwith, address } = req.body;
+  const { name, email, password, familyname, phone, sizearea, hamamasize, numberofactivefarms, aboutme, imageurl, choosenvegetables, choosenfieldcrops, plans, usertype, workingwith, address, fieldcropplan } = req.body;
 
   // Simple validation
   if(!name || !email || !password) {
@@ -34,10 +34,12 @@ router.post('/', (req, res) => {
         aboutme,
         imageurl,
         choosenvegetables,
+        choosenfieldcrops,
         plans,
         usertype,
         workingwith,
-        address
+        address,
+        fieldcropplan
       });
 
       // Create salt & hash
@@ -67,10 +69,12 @@ router.post('/', (req, res) => {
                       aboutme: user.aboutme,
                       imageurl: user.imageurl,
                       choosenvegetables: user.choosenvegetables,
+                      choosenfieldcrops: user.choosenfieldcrops,
                       plans: user.plans,
                       usertype: user.usertype,
                       workingwith: user.workingwith,
-                      address: user.address
+                      address: user.address,
+                      fieldcropplan: user.fieldcropplan
                     }
                   });
                 }
