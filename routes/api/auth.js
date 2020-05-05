@@ -49,10 +49,12 @@ router.post('/', (req, res) => {
                   aboutme: user.aboutme,
                   imageurl: user.imageurl,
                   choosenvegetables: user.choosenvegetables,
+                  choosenfieldcrops: user.choosenfieldcrops,
                   plans: user.plans,
                   usertype: user.usertype,
                   workingwith: user.workingwith,
-                  address: user.address
+                  address: user.address,
+                  fieldcropplan: user.fieldcropplan
                 }
               });
             }
