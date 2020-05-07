@@ -55,6 +55,7 @@ app.use('/api/ResetUserName', require('./routes/api/ResetUserName'));
 app.use('/api/fieldcrops', require('./routes/api/fieldcrops'));
 app.use('/api/updatefieldcrop', require('./routes/api/updatefieldcrop'));
 app.use('/api/veglogs', require('./routes/api/veglogs'));
+app.use('/api/myshopitems', require('./routes/api/myshopitems'));
 
 const port = process.env.PORT || 5000;
 
