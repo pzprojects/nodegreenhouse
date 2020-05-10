@@ -45,19 +45,18 @@ router.post('/', auth, async (req, res) => {
     if (!myshopitem) throw Error('Something went wrong saving the shop item');
 
     // Mail Format for all
-    var AllMailBody = '<p>השתילים שנרכשו הינם:</p>';
+    var AllMailBody = '<p>פרטי ההזמנה:</p>';
     for (var i = 0; i < myshopitem.growershoopinglist.length; i++) {
         AllMailBody += '<p>' + myshopitem.growershoopinglist[i].ChoosenVegAmount + ' שתילי ' + myshopitem.growershoopinglist[i].ChoosenVegName +
         ' בעלות של ' + myshopitem.growershoopinglist[i].ChoosenVegPrice + ' ש"ח ליחידה.' + '</p>';
     }
     AllMailBody += '<p>הסכום הכולל לתשלום הוא: ' + myshopitem.totalpayed + ' ש"ח.</p>';
-    AllMailBody += '<p>בברכה,</p>';
-    AllMailBody += '<p>CO-Greenhouse</p></div>';
+    AllMailBody += '<p>תודה,</p>';
+    AllMailBody += '<p>קהילת GREENHOUSE-CO</p></div>';
 
     // Mail Format for Cogreenhouse
     var ManagerMailBody = '<div dir="rtl"><p>שלום רב,</p>';
-    ManagerMailBody += '<p>' + 'המגדל ' + myshopitem.growername + ' (' + myshopitem.groweremail + ') רכש שתילים בסך '+ myshopitem.totalpayed
-    + ' ש"ח מהחקלאי ' + myshopitem.farmername + ' (' + myshopitem.farmeremail + ').' + '</p>';
+    ManagerMailBody += '<p>' + 'המגדל ' + myshopitem.growername + ' (' + myshopitem.groweremail + ') ' + ' שחממתו באחריות החקלאי  ' + myshopitem.farmername + ' (' + myshopitem.farmeremail + ') ביצע הזמנת שתילים נוספת.' + '</p>';
     ManagerMailBody += AllMailBody;
 
     var ManagermailOptions = {

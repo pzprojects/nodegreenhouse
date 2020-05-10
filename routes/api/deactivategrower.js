@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const auth = require('../../middleware/auth');
+const SendMail = require('../../Services/mail');
 
 // grower Model
 const Grower = require('../../models/grower');
@@ -22,6 +23,23 @@ router.post('/:email', auth, (req, res) => {
 
       grower.save();
       if (!grower) throw Error('Something went wrong saving the grower');
+
+      // Mail to farmer to notify that grower deactivate plan
+      var FarmerMailBody = '<div dir="rtl"><p>שלום ' + grower.chossenfarmerfullname + ',</p>';
+      FarmerMailBody += '<p>המגדל ' + grower.name + ' ' + grower.familyname  + ' מעוניין לעבור לגדל את גידוליו אצל חקלאי אחר.</p>';
+      FarmerMailBody += '<p>אנא צור איתו קשר לסיום תקופת היבול של גידוליו בחלקתך.</p>';
+      FarmerMailBody += '<p>תודה,</p>';
+      FarmerMailBody += '<p>קהילת GREENHOUSE-CO</p></div>';
+
+  
+      var mailOptions = {
+        from: 'cogreenhouse09@gmail.com',
+        to: grower.chossenfarmer,
+        subject: 'הפסקת מנוי חודשי',
+        html: FarmerMailBody
+      };
+
+      SendMail(mailOptions);
   
       res.status(200).json(grower);
     } catch (e) {

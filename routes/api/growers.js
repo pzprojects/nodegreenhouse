@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const auth = require('../../middleware/auth');
+const SendMail = require('../../Services/mail');
 
 // grower Model
 const Grower = require('../../models/grower');
@@ -71,6 +72,57 @@ router.post('/', async (req, res) => {
 
     const grower = await newgrower.save();
     if (!grower) throw Error('Something went wrong saving the grower');
+
+    // Mail to grower when he join's
+    var GrowerMailBody = '<div dir="rtl"><p>ברוכים הבאים ל- CO-GREENHOUSE!</p>';
+    GrowerMailBody += '<p>אנו שמחים שבחרת לקחת את האחריות לידך על מנת להעניק לך ולסביבתך חווית גידול ייחודית</p>';
+    GrowerMailBody += '<p>המאפשרת לכם לקחת חלק פעיל ככל שתבחרו בתהליך גידול הירקות אותם אתם צורכים</p>';
+    GrowerMailBody += '<p>תוך תמיכה פעילה בחקלאים.</p>';
+    GrowerMailBody += '<p>מהיום יש לך חלקה בליווי החקלאי שבחרת, אתם פועלים יחד בחוויה </p>';
+    GrowerMailBody += '<p>חקלאית משותפת למען גידולים איכותיים ומזינים.</p>';
+    GrowerMailBody += '<p>ניתן תמיד להיות איתנו בקשר במייל:</p>';
+    GrowerMailBody += '<p>או בטלפון:</p></div>';
+
+    // Mail to system admin
+    var ManagerMailBody = '<div dir="rtl"><p>שלום רב,</p>';
+    ManagerMailBody += '<p>' + 'המגדל ' + newgrower.name + " " + newgrower.familyname + ' (' + newgrower.email + ') הצטרף לקהילה.</p>';
+    ManagerMailBody += '<p>לצפיה בפרטים שהזין ' + '<a href="http://greenhouse.com.s3-website-eu-west-1.amazonaws.com/" target="_blank" >לחץ כאן</a></p></br>';
+    ManagerMailBody += '<p>תודה,</p>';
+    ManagerMailBody += '<p>קהילת GREENHOUSE-CO</p></div>';
+
+    // Mail to notify farmer
+    var FarmerMailBody = '<div dir="rtl"><p>מזל טוב!</p>';
+    FarmerMailBody += '<p>' + 'המגדל ' + newgrower.name + " " + newgrower.familyname + ' בחר להצטרף לחלקה שלך</p>';
+    FarmerMailBody += '<p>צרו קשר לקביעת פגישת היכרות</p>';
+    FarmerMailBody += '<p>והחלו בחווית הגידול יחדיו.</p></br>';
+    FarmerMailBody += '<p>לצפיה בפרטי המגדל ' + '<a href="http://greenhouse.com.s3-website-eu-west-1.amazonaws.com/" target="_blank" >לחץ כאן</a></p></br>';
+    FarmerMailBody += '<p>תודה,</p>';
+    FarmerMailBody += '<p>קהילת GREENHOUSE-CO</p></div>';
+
+    var ManagermailOptions = {
+        from: 'cogreenhouse09@gmail.com',
+        to: 'liron@projects.org.il',
+        subject: '🌻 הצטרפות חקלאי לקהילה 🌻',
+        html: ManagerMailBody
+    };
+
+    var GrowermailOptions = {
+        from: 'cogreenhouse09@gmail.com',
+        to: newgrower.email,
+        subject: '🌻 תודה על הצטרפותך לקהילת CO-Greenhouse 🌻',
+        html: GrowerMailBody
+    };
+
+    var FarmermailOptions = {
+        from: 'cogreenhouse09@gmail.com',
+        to: newgrower.chossenfarmer,
+        subject: '🌻 הצטרפות מגדל 🌻',
+        html: FarmerMailBody
+    };
+
+    SendMail(GrowermailOptions);
+    SendMail(FarmermailOptions);
+    SendMail(ManagermailOptions);
 
     res.status(200).json(grower);
   } catch (e) {

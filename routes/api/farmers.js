@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const auth = require('../../middleware/auth');
+const SendMail = require('../../Services/mail');
 
 // farmer Model
 const Farmer = require('../../models/farmer');
@@ -73,6 +74,37 @@ router.post('/', async (req, res) => {
 
     const farmer = await newfarmer.save();
     if (!farmer) throw Error('Farmer went wrong saving the farmer');
+
+    // Mail to farmer when he join's
+    var FarmerMailBody = '<div dir="rtl"><p>חקלאי יקר,</p>';
+    FarmerMailBody += '<p>תודה רבה על פנייתך להצטרפות לקהילת CO-GREENHOUSE</p>';
+    FarmerMailBody += '<p>פרטייך הגיעו אלינו ובקרוב ניצור קשר </p></br>';
+    FarmerMailBody += '<p>תודה,</p>';
+    FarmerMailBody += '<p>קהילת GREENHOUSE-CO</p></div>';
+
+    // Mail to system admin
+    var ManagerMailBody = '<div dir="rtl"><p>שלום רב,</p>';
+    ManagerMailBody += '<p>' + 'החקלאי ' + newfarmer.name + " " + newfarmer.familyname + ' (' + newfarmer.email + ') שלח בקשת הצטרפות לקהילה.</p>';
+    ManagerMailBody += '<p>לצפיה בפרטים שהזין ' + '<a href="http://greenhouse.com.s3-website-eu-west-1.amazonaws.com/" target="_blank" >לחץ כאן</a></p></br>';
+    ManagerMailBody += '<p>תודה,</p>';
+    ManagerMailBody += '<p>קהילת GREENHOUSE-CO</p></div>';
+
+    var ManagermailOptions = {
+        from: 'cogreenhouse09@gmail.com',
+        to: 'liron@projects.org.il',
+        subject: '🌻 הצטרפות חקלאי לקהילה 🌻',
+        html: ManagerMailBody
+    };
+
+    var FarmermailOptions = {
+        from: 'cogreenhouse09@gmail.com',
+        to: newfarmer.email,
+        subject: '🌻 תודה על הצטרפותך לקהילת CO-Greenhouse 🌻',
+        html: FarmerMailBody
+    };
+
+    SendMail(FarmermailOptions);
+    SendMail(ManagermailOptions);
 
     res.status(200).json(farmer);
   } catch (e) {
