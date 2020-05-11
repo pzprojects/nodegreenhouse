@@ -77,6 +77,7 @@ const UserSchema = new Schema({
   },
   workingwith : [
     {
+         _id: {type : String},
          email: {type : String},
          usertype: {type : String},
          active: {type : Boolean},

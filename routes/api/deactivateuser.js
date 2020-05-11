@@ -20,9 +20,11 @@ router.post('/:id', auth, (req, res) => {
 
       // no need for else since you are returning early ^
       user.workingwith = workingwith;
-
       user.save();
       if (!user) throw Error('Something went wrong saving the user');
+
+      let RegisterDate = new Date();
+      let RegisterDateToStringFormat = RegisterDate.getDate() + "/"+ parseInt(RegisterDate.getMonth()+1) +"/"+RegisterDate.getFullYear();
 
       // Mail to grower deactivate plan
       var GrowerMailBody = '<div dir="rtl"><p>שלום ' + user.name + '</p>';
@@ -35,14 +37,14 @@ router.post('/:id', auth, (req, res) => {
       GrowerMailBody += '<p>-	לא מצאתי מסלול שמתאים לי/p>';
       GrowerMailBody += '<p>-	יקר לי מידי</p>';
       GrowerMailBody += '<p>רוצה לספר לנו יותר ?</p>';
-      GrowerMailBody += '<p>שלח לנו מייל וספר לנו בהרחה על החוויה שלך </p>';
+      GrowerMailBody += '<p>שלח לנו מייל וספר לנו בהרחבה על החוויה שלך </p>';
       GrowerMailBody += '<p>ב- CO-GREENHOUSE.</p>';
       GrowerMailBody += '<p>תוכל כמובן לאסוף את גידולייך בתיאום עם החקלאי שלך.</p>';
       GrowerMailBody += '<p>תמיד אפשר להתחרט ונשמח שתחדש את החברות בקהילה.</p></div>';
 
       // Mail to system admin
       var ManagerMailBody = '<div dir="rtl"><p>שלום רב,</p>';
-      ManagerMailBody += '<p>' + 'המגדל ' + user.name + " " + user.familyname + ' (' + user.email + ') בחר לעזוב את הקהילה.</p>';
+      ManagerMailBody += '<p>' + 'המגדל ' + user.name + " " + user.familyname + ' (' + user.email + ') בחר לעזוב את הקהילה בתאריך ' + RegisterDateToStringFormat + '.</p>';
       ManagerMailBody += '<p>לצפיה בפרטים שהזין ' + '<a href="http://greenhouse.com.s3-website-eu-west-1.amazonaws.com/" target="_blank" >לחץ כאן</a></p></br>';
       ManagerMailBody += '<p>תודה,</p>';
       ManagerMailBody += '<p>קהילת GREENHOUSE-CO</p></div>';
@@ -50,7 +52,7 @@ router.post('/:id', auth, (req, res) => {
 
       var mailOptions = {
         from: 'cogreenhouse09@gmail.com',
-        to: 'liron@projects.org.il',
+        to: user.email,
         subject: 'הפסקת מנוי חודשי',
         html: GrowerMailBody
       };
