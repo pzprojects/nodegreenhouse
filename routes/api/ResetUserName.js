@@ -20,8 +20,6 @@ router.post('/:email', auth, (req, res) => {
       // validate 
       if (!email) throw Error('One or more fields are empty');
 
-      console.log(user);
-
       // no need for else since you are returning early ^
       user.email = email;
 
