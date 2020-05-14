@@ -20,6 +20,7 @@ app.get("/json", (req, res) => {
  });
 //app.use(express.static(path.join(__dirname, 'client/build')));
 
+console.log(rocess.env.DB);
 // Connect to Mongo
 mongoose
   .connect(process.env.DB, { 
