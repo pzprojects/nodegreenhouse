@@ -73,7 +73,7 @@ router.post('/', auth, async (req, res) => {
 
     var GrowermailOptions = {
         from: 'cogreenhouse09@gmail.com',
-        to: 'liron@projects.org.il',
+        to: myshopitem.groweremail,
         subject: '🌻 פירוט רכישת שתילים מחקלאי 🌻',
         html: GrowerMailBody
     };
@@ -85,7 +85,7 @@ router.post('/', auth, async (req, res) => {
 
     var FarmermailOptions = {
         from: 'cogreenhouse09@gmail.com',
-        to: 'liron@projects.org.il',
+        to: myshopitem.farmeremail,
         subject: '🌻 הזמנת שתילים חדשה 🌻',
         html: FarmerMailBody
     };
