@@ -1,15 +1,15 @@
 require('dotenv').config();
-import express, { json } from 'express';
-import { connect } from 'mongoose';
-import path from 'path';
-import cors from 'cors';
+const express = require('express');
+const mongoose = require('mongoose');
+const path = require('path');
+const cors = require('cors');
 
 
 const app = express();
 app.use(cors());
 
 // Bodyparser Middleware
-app.use(json());
+app.use(express.json());
 
 app.get("/json", (req, res) => {
     res.json({ message: "Server is up!" });
@@ -21,7 +21,8 @@ app.get("/json", (req, res) => {
 //app.use(express.static(path.join(__dirname, 'client/build')));
 
 // Connect to Mongo
-connect(process.env.DB, { 
+mongoose
+  .connect(process.env.DB, { 
     useNewUrlParser: true,
     useCreateIndex: true,
     useUnifiedTopology: true,
@@ -61,7 +62,10 @@ app.use('/api/updateveglanguage', require('./routes/api/updateveglanguage'));
 const port = process.env.PORT || 5000;
 
 // Importing AWSPresigner
-import { generateGetUrl, generatePutUrl } from './s3upload/AWSPresigner';
+const {
+  generateGetUrl,
+  generatePutUrl
+} = require('./s3upload/AWSPresigner');
 
 // GET URL
 app.get('/generate-get-url', (req, res) => {
