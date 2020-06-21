@@ -51,15 +51,15 @@ router.post('/:id', auth, (req, res) => {
 
 
       var mailOptions = {
-        from: 'cogreenhouse09@gmail.com',
+        from: process.env.Email_User,
         to: user.email,
         subject: 'הפסקת מנוי חודשי',
         html: GrowerMailBody
       };
 
       var ManagermailOptions = {
-        from: 'cogreenhouse09@gmail.com',
-        to: 'liron@projects.org.il',
+        from: process.env.Email_User,
+        to: process.env.Email_User,
         subject: '🌻 הפסקת מנוי חודשי מחקלאי 🌻',
         html: ManagerMailBody
       };

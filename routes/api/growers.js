@@ -100,21 +100,21 @@ router.post('/', async (req, res) => {
     FarmerMailBody += '<p>קהילת GREENHOUSE-CO</p></div>';
 
     var ManagermailOptions = {
-        from: 'cogreenhouse09@gmail.com',
-        to: 'liron@projects.org.il',
+        from: process.env.Email_User,
+        to: process.env.Email_User,
         subject: '🌻 הצטרפות חקלאי לקהילה 🌻',
         html: ManagerMailBody
     };
 
     var GrowermailOptions = {
-        from: 'cogreenhouse09@gmail.com',
+        from: process.env.Email_User,
         to: newgrower.email,
         subject: '🌻 תודה על הצטרפותך לקהילת CO-Greenhouse 🌻',
         html: GrowerMailBody
     };
 
     var FarmermailOptions = {
-        from: 'cogreenhouse09@gmail.com',
+        from: process.env.Email_User,
         to: newgrower.chossenfarmer,
         subject: '🌻 הצטרפות מגדל 🌻',
         html: FarmerMailBody

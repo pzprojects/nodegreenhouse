@@ -26,14 +26,14 @@ router.post('/:email', auth, (req, res) => {
 
       // Mail to farmer to notify that grower deactivate plan
       var FarmerMailBody = '<div dir="rtl"><p>שלום ' + grower.chossenfarmerfullname + ',</p>';
-      FarmerMailBody += '<p>המגדל ' + grower.name + ' ' + grower.familyname  + ' מעוניין לעבור לגדל את גידוליו אצל חקלאי אחר.</p>';
+      FarmerMailBody += '<p>המגדל ' + grower.name + ' ' + grower.familyname  + ' מעוניין להפסיק את המנוי.</p>';
       FarmerMailBody += '<p>אנא צור איתו קשר לסיום תקופת היבול של גידוליו בחלקתך.</p>';
       FarmerMailBody += '<p>תודה,</p>';
       FarmerMailBody += '<p>קהילת GREENHOUSE-CO</p></div>';
 
   
       var mailOptions = {
-        from: 'cogreenhouse09@gmail.com',
+        from: process.env.Email_User,
         to: grower.chossenfarmer,
         subject: 'הפסקת מנוי חודשי',
         html: FarmerMailBody

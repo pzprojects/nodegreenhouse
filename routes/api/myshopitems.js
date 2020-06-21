@@ -60,8 +60,8 @@ router.post('/', auth, async (req, res) => {
     ManagerMailBody += AllMailBody;
 
     var ManagermailOptions = {
-        from: 'cogreenhouse09@gmail.com',
-        to: 'liron@projects.org.il',
+        from: process.env.Email_User,
+        to: process.env.Email_User,
         subject: '🌻 רכישת שתילים מחקלאי 🌻',
         html: ManagerMailBody
     };
@@ -72,7 +72,7 @@ router.post('/', auth, async (req, res) => {
     GrowerMailBody += AllMailBody;
 
     var GrowermailOptions = {
-        from: 'cogreenhouse09@gmail.com',
+        from: process.env.Email_User,
         to: myshopitem.groweremail,
         subject: '🌻 פירוט רכישת שתילים מחקלאי 🌻',
         html: GrowerMailBody
@@ -84,7 +84,7 @@ router.post('/', auth, async (req, res) => {
     FarmerMailBody += AllMailBody;
 
     var FarmermailOptions = {
-        from: 'cogreenhouse09@gmail.com',
+        from: process.env.Email_User,
         to: myshopitem.farmeremail,
         subject: '🌻 הזמנת שתילים חדשה 🌻',
         html: FarmerMailBody
