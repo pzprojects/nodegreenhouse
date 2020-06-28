@@ -76,18 +76,20 @@ router.post('/', async (req, res) => {
     if (!farmer) throw Error('Farmer went wrong saving the farmer');
 
     // Mail to farmer when he join's
-    var FarmerMailBody = '<div dir="rtl"><p>חקלאי יקר,</p>';
+    var FarmerMailBody = '<div dir="rtl" style="text-align:center;font-size:14px;"><p>חקלאי יקר,</p>';
     FarmerMailBody += '<p>תודה רבה על פנייתך להצטרפות לקהילת CO-GREENHOUSE</p>';
     FarmerMailBody += '<p>פרטייך הגיעו אלינו ובקרוב ניצור קשר </p></br>';
     FarmerMailBody += '<p>תודה,</p>';
-    FarmerMailBody += '<p>קהילת GREENHOUSE-CO</p></div>';
+    FarmerMailBody += '<p>קהילת GREENHOUSE-CO</p></div><br>';
+    FarmerMailBody += '<p style="text-align:center;"><img src="https://profileimages12.s3-eu-west-1.amazonaws.com/GreenhouseAssets/logo.png" alt="logo" style="width:200px;height:60px;"></p></div>';
 
     // Mail to system admin
-    var ManagerMailBody = '<div dir="rtl"><p>שלום רב,</p>';
+    var ManagerMailBody = '<div dir="rtl" style="text-align:center;font-size:14px;"><p>שלום רב,</p>';
     ManagerMailBody += '<p>' + 'החקלאי ' + newfarmer.name + " " + newfarmer.familyname + ' (' + newfarmer.email + ') שלח בקשת הצטרפות לקהילה.</p>';
-    ManagerMailBody += '<p>לצפיה בפרטים שהזין ' + '<a href="http://greenhouse.com.s3-website-eu-west-1.amazonaws.com/" target="_blank" >לחץ כאן</a></p></br>';
+    ManagerMailBody += '<p><a href="' + process.env.Site_HomePage_Url + '" target="_blank" style="font-weight:bold;text-decoration:none;" >לצפיה בפרטים שהזין</a></p></br>';
     ManagerMailBody += '<p>תודה,</p>';
-    ManagerMailBody += '<p>קהילת GREENHOUSE-CO</p></div>';
+    ManagerMailBody += '<p>קהילת GREENHOUSE-CO</p><br>';
+    ManagerMailBody += '<p style="text-align:center;"><img src="https://profileimages12.s3-eu-west-1.amazonaws.com/GreenhouseAssets/logo.png" alt="logo" style="width:200px;height:60px;"></p></div>';
 
     var ManagermailOptions = {
         from: process.env.Email_User,

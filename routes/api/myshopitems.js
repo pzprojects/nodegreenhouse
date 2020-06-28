@@ -52,10 +52,11 @@ router.post('/', auth, async (req, res) => {
     }
     AllMailBody += '<p>הסכום הכולל לתשלום הוא: ' + myshopitem.totalpayed + ' ש"ח.</p>';
     AllMailBody += '<p>תודה,</p>';
-    AllMailBody += '<p>קהילת GREENHOUSE-CO</p></div>';
+    AllMailBody += '<p>קהילת GREENHOUSE-CO</p><br>';
+    AllMailBody += '<p style="text-align:center;"><img src="https://profileimages12.s3-eu-west-1.amazonaws.com/GreenhouseAssets/logo.png" alt="logo" style="width:200px;height:60px;"></p></div>';
 
     // Mail Format for Cogreenhouse
-    var ManagerMailBody = '<div dir="rtl"><p>שלום רב,</p>';
+    var ManagerMailBody = '<div dir="rtl" style="text-align:center;font-size:14px;"><p>שלום,</p>';
     ManagerMailBody += '<p>' + 'המגדל ' + myshopitem.growername + ' (' + myshopitem.groweremail + ') ' + ' שחממתו באחריות החקלאי  ' + myshopitem.farmername + ' (' + myshopitem.farmeremail + ') ביצע הזמנת שתילים נוספת.' + '</p>';
     ManagerMailBody += AllMailBody;
 
@@ -67,7 +68,7 @@ router.post('/', auth, async (req, res) => {
     };
 
     // Mail Format for grower
-    var GrowerMailBody = '<div dir="rtl"><p>' + myshopitem.growername + ' שלום רב, </p>';
+    var GrowerMailBody = '<div dir="rtl" style="text-align:center;font-size:14px;"><p>שלום ' + myshopitem.growername + ', </p>';
     GrowerMailBody += '<p>תודה שרכשת שתילים מהחקלאי ' + myshopitem.farmername + ' (' + myshopitem.farmeremail + ').' + '</p>';
     GrowerMailBody += AllMailBody;
 
@@ -79,7 +80,7 @@ router.post('/', auth, async (req, res) => {
     };
 
     // Mail Format for Farmer
-    var FarmerMailBody = '<div dir="rtl"><p>' + myshopitem.farmername + ' שלום רב, </p>';
+    var FarmerMailBody = '<div dir="rtl" style="text-align:center;font-size:14px;"><p>שלום ' + myshopitem.farmername + ', </p>';
     FarmerMailBody += '<p>התקבלה בקשה לרכישת שתילים על ידי ' + myshopitem.growername + ' (' + myshopitem.groweremail + ').' + '</p>';
     FarmerMailBody += AllMailBody;
 

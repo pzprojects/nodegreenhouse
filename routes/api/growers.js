@@ -74,30 +74,33 @@ router.post('/', async (req, res) => {
     if (!grower) throw Error('Something went wrong saving the grower');
 
     // Mail to grower when he join's
-    var GrowerMailBody = '<div dir="rtl"><p>ברוכים הבאים ל- CO-GREENHOUSE!</p>';
+    var GrowerMailBody = '<div dir="rtl" style="text-align:center;font-size:14px;"><p style="font-size:16px;font-weight:bold;">ברוכים הבאים ל- CO-GREENHOUSE!</p>';
     GrowerMailBody += '<p>אנו שמחים שבחרת לקחת את האחריות לידך על מנת להעניק לך ולסביבתך חווית גידול ייחודית</p>';
     GrowerMailBody += '<p>המאפשרת לכם לקחת חלק פעיל ככל שתבחרו בתהליך גידול הירקות אותם אתם צורכים</p>';
     GrowerMailBody += '<p>תוך תמיכה פעילה בחקלאים.</p>';
     GrowerMailBody += '<p>מהיום יש לך חלקה בליווי החקלאי שבחרת, אתם פועלים יחד בחוויה </p>';
     GrowerMailBody += '<p>חקלאית משותפת למען גידולים איכותיים ומזינים.</p>';
     GrowerMailBody += '<p>ניתן תמיד להיות איתנו בקשר במייל:</p>';
-    GrowerMailBody += '<p>או בטלפון:</p></div>';
+    GrowerMailBody += '<p>Info.cogreenhouse@gmail.com</p><br>';
+    GrowerMailBody += '<p style="text-align:center;"><img src="https://profileimages12.s3-eu-west-1.amazonaws.com/GreenhouseAssets/logo.png" alt="logo" style="width:200px;height:60px;"></p></div>';
 
     // Mail to system admin
-    var ManagerMailBody = '<div dir="rtl"><p>שלום רב,</p>';
+    var ManagerMailBody = '<div dir="rtl" style="text-align:center;font-size:14px;"><p>שלום רב,</p>';
     ManagerMailBody += '<p>' + 'המגדל ' + newgrower.name + " " + newgrower.familyname + ' (' + newgrower.email + ') הצטרף לקהילה.</p>';
-    ManagerMailBody += '<p>לצפיה בפרטים שהזין ' + '<a href="http://greenhouse.com.s3-website-eu-west-1.amazonaws.com/" target="_blank" >לחץ כאן</a></p></br>';
+    ManagerMailBody += '<p><a href="' + process.env.Site_HomePage_Url + '" target="_blank" style="font-weight:bold;text-decoration:none;" >לצפיה בפרטים שהזין</a></p></br>';
     ManagerMailBody += '<p>תודה,</p>';
-    ManagerMailBody += '<p>קהילת GREENHOUSE-CO</p></div>';
+    ManagerMailBody += '<p>קהילת GREENHOUSE-CO</p><br>';
+    ManagerMailBody += '<p style="text-align:center;"><img src="https://profileimages12.s3-eu-west-1.amazonaws.com/GreenhouseAssets/logo.png" alt="logo" style="width:200px;height:60px;"></p></div>';
 
     // Mail to notify farmer
-    var FarmerMailBody = '<div dir="rtl"><p>מזל טוב!</p>';
+    var FarmerMailBody = '<div dir="rtl" style="text-align:center;font-size:14px;"><p style="font-size:16px;font-weight:bold;">מזל טוב!</p>';
     FarmerMailBody += '<p>' + 'המגדל ' + newgrower.name + " " + newgrower.familyname + ' בחר להצטרף לחלקה שלך</p>';
     FarmerMailBody += '<p>צרו קשר לקביעת פגישת היכרות</p>';
     FarmerMailBody += '<p>והחלו בחווית הגידול יחדיו.</p></br>';
-    FarmerMailBody += '<p>לצפיה בפרטי המגדל ' + '<a href="http://greenhouse.com.s3-website-eu-west-1.amazonaws.com/" target="_blank" >לחץ כאן</a></p></br>';
+    FarmerMailBody += '<p><a href="' + process.env.Site_HomePage_Url + '" target="_blank" style="font-size:12px;font-weight:bold;" style="font-weight:bold;text-decoration:none;">לצפייה בפרטי המגדל</a></p></br>';
     FarmerMailBody += '<p>תודה,</p>';
-    FarmerMailBody += '<p>קהילת GREENHOUSE-CO</p></div>';
+    FarmerMailBody += '<p>קהילת GREENHOUSE-CO</p><br>';
+    FarmerMailBody += '<p style="text-align:center;"><img src="https://profileimages12.s3-eu-west-1.amazonaws.com/GreenhouseAssets/logo.png" alt="logo" style="width:200px;height:60px;"></p></div>';
 
     var ManagermailOptions = {
         from: process.env.Email_User,

@@ -25,11 +25,12 @@ router.post('/:email', auth, (req, res) => {
       if (!grower) throw Error('Something went wrong saving the grower');
 
       // Mail to farmer to notify that grower deactivate plan
-      var FarmerMailBody = '<div dir="rtl"><p>שלום ' + grower.chossenfarmerfullname + ',</p>';
-      FarmerMailBody += '<p>המגדל ' + grower.name + ' ' + grower.familyname  + ' מעוניין להפסיק את המנוי.</p>';
-      FarmerMailBody += '<p>אנא צור איתו קשר לסיום תקופת היבול של גידוליו בחלקתך.</p>';
+      var FarmerMailBody = '<div dir="rtl" style="text-align:center;font-size:14px;"><p>שלום ' + grower.chossenfarmerfullname + ',</p>';
+      FarmerMailBody += '<p>המגדל ' + grower.name + ' ' + grower.familyname  + ' עוזב את קהילתנו.</p>';
+      FarmerMailBody += '<p>לאחר תום תקופת היבול של גידוליו עזיבת קהילתנו תממש.</p>';
       FarmerMailBody += '<p>תודה,</p>';
-      FarmerMailBody += '<p>קהילת GREENHOUSE-CO</p></div>';
+      FarmerMailBody += '<p>קהילת GREENHOUSE-CO</p><br>';
+      FarmerMailBody += '<p style="text-align:center;"><img src="https://profileimages12.s3-eu-west-1.amazonaws.com/GreenhouseAssets/logo.png" alt="logo" style="width:200px;height:60px;"></p>';
 
   
       var mailOptions = {
