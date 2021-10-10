@@ -19,6 +19,7 @@ router.post('/:id', auth, (req, res) => {
 
       // validate 
       if (!name || !familyname || !phone || !address) throw Error('One or more fields are empty');
+      console.log('hi');
 
       // no need for else since you are returning early ^
       user.name = name;
