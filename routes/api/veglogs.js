@@ -15,7 +15,6 @@ router.get('/', async (req, res) => {
     try {
       const veglogs = await Veglog.find();
       if (!veglogs) throw Error('לא נמצאו נתונים');
-      console.log();
   
       res.status(200).json(veglogs);
     } catch (e) {
