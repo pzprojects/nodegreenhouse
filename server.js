@@ -1,4 +1,9 @@
-require('dotenv').config();
+try {
+  require('dotenv').config();
+} catch (error) {
+  // Do nothing
+}
+
 const express = require('express');
 const mongoose = require('mongoose');
 const path = require('path');
