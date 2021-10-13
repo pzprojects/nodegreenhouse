@@ -1,4 +1,8 @@
-require('dotenv').config();
+try {
+  require('dotenv').config();
+} catch (error) {
+  // Do nothing
+}
 var nodemailer = require('nodemailer');
 
 const transporter = nodemailer.createTransport({

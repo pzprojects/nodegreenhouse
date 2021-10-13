@@ -1,7 +1,7 @@
 try {
   require('dotenv').config();
 } catch (error) {
-  // Do nothing
+  // Do nothing if err
 }
 
 const express = require('express');

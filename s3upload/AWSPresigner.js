@@ -1,4 +1,9 @@
-require('dotenv').config(); // Loading dotenv to have access to env variables
+// Loading dotenv to have access to env variables
+try {
+  require('dotenv').config();
+} catch (error) {
+  // Do nothing
+} 
 const AWS = require('aws-sdk'); // Requiring AWS SDK.
 
 // Configuring AWS
