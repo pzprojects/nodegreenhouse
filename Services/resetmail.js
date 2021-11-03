@@ -3,15 +3,6 @@ try {
 } catch (error) {
   // Do nothing
 }
-var nodemailer = require('nodemailer');
-
-const transporter = nodemailer.createTransport({
-  service: "gmail",
-  auth: {
-    user: process.env.Email_User,
-    pass: process.env.Email_Password
-  }
-})
 
 function getPasswordResetURL(user, token){
   return `${process.env.Site_HomePage_Url}/UpdatePassword/${user._id}/${token}`;
@@ -31,9 +22,30 @@ function resetPasswordTemplate(user, url){
   <p style="text-align:center;"><img src="https://profileimages12.s3-eu-west-1.amazonaws.com/GreenhouseAssets/logo.png" alt="logo" style="width:200px;height:60px;"></p></div>
   `
 
-  return { from, to, subject, html }
+  let params = {
+    Source: from,
+    Destination: {
+      ToAddresses: [
+        to
+      ],
+    },
+    ReplyToAddresses: [],
+    Message: {
+      Body: {
+        Html: {
+          Charset: 'UTF-8',
+          Data: html,
+        },
+      },
+      Subject: {
+        Charset: 'UTF-8',
+        Data: subject,
+      }
+    },
+  };
+
+  return params;
 }
 
-module.exports.transporter = transporter;
 module.exports.getPasswordResetURL = getPasswordResetURL;
 module.exports.resetPasswordTemplate = resetPasswordTemplate;

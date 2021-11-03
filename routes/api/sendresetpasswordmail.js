@@ -3,6 +3,16 @@ const router = express.Router();
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const ResetMailFunctions = require('../../Services/resetmail');
+const AWS = require('aws-sdk')
+
+// Configuring AWS
+AWS.config.update({
+  accessKeyId: process.env.SES_KEY, // stored in the .env file
+  secretAccessKey: process.env.SES_SECRET, // stored in the .env file
+  region: process.env.BUCKET_REGION // This refers to your bucket configuration.
+});
+
+const AWS_SES = new AWS.SES({apiVersion: 'latest'});
 
 // User Model
 const User = require('../../models/User');
@@ -28,14 +38,16 @@ router.post('/:email', async (req, res) => {
       const token = usePasswordHashToMakeToken(user.password, user.id, user.register_date);
       const url = ResetMailFunctions.getPasswordResetURL(user, token);
       const emailTemplate = ResetMailFunctions.resetPasswordTemplate(user, url);
+      console.log(emailTemplate);
       const sendEmail = () => {
-        ResetMailFunctions.transporter.sendMail(emailTemplate, (err, info) => {
+        AWS_SES.sendEmail(emailTemplate, (err, info) => {
           if (err) {
+            console.log(err);
             res.status(500).json("תקלה בעת שליחת מייל")
           }
         })
       }
-      sendEmail()
+      sendEmail();
     } catch (err) {
       res.status(404).json("המשתמש לא קיים")
     }

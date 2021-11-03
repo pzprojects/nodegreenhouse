@@ -2,26 +2,49 @@ try {
   require('dotenv').config();
 } catch (error) {
   // Do nothing
-} 
-var nodemailer = require('nodemailer');
+}
+const AWS = require('aws-sdk')
 
+// Configuring AWS
+AWS.config.update({
+  accessKeyId: process.env.SES_KEY, // stored in the .env file
+  secretAccessKey: process.env.SES_SECRET, // stored in the .env file
+  region: process.env.BUCKET_REGION // This refers to your bucket configuration.
+});
+
+const AWS_SES = new AWS.SES({apiVersion: 'latest'});
 
 function SendMail(mailOptions) {
-    var transporter = nodemailer.createTransport({
-        service: 'gmail',
-        auth: {
-          user: process.env.Email_User,
-          pass: process.env.Email_Password
-        }
-      });
+  let params = {
+    Source: mailOptions.from,
+    Destination: {
+      ToAddresses: [
+        mailOptions.to
+      ],
+    },
+    ReplyToAddresses: [],
+    Message: {
+      Body: {
+        Html: {
+          Charset: 'UTF-8',
+          Data: mailOptions.html,
+        },
+      },
+      Subject: {
+        Charset: 'UTF-8',
+        Data: mailOptions.subject,
+      }
+    },
+  };
 
-      transporter.sendMail(mailOptions, function(error, info){
-        if (error) {
-          console.log(error);
-        } else {
+  AWS_SES.sendEmail(params, function (err, data) {
+    if (err) {
+      console.log(err);
+    } else {
+      console.log('Email sent:');
+      console.log(data);
+    }
+  });
+}
 
-        }
-      });
- }
-
- module.exports = SendMail;
+module.exports = SendMail;
