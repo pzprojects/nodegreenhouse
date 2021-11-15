@@ -58,6 +58,7 @@ app.use('/api/veglogs', require('./routes/api/veglogs'));
 app.use('/api/myshopitems', require('./routes/api/myshopitems'));
 app.use('/api/veglanguages', require('./routes/api/veglanguages'));
 app.use('/api/updateveglanguage', require('./routes/api/updateveglanguage'));
+app.use('/api/payments', require('./routes/api/payments'));
 
 const port = process.env.PORT || 5000;
 
