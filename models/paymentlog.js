@@ -11,6 +11,14 @@ const paymentlogSchema = new Schema({
         type: String,
         required: true
     },
+    farmertopay: {
+        type: String,
+        required: true
+    },
+    phone: {
+        type: String,
+        required: true
+    },
     sumpayed: {
         type: Number,
         required: true

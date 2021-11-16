@@ -5,6 +5,19 @@ const auth = require('../../middleware/auth');
 // farmer Paymentlog
 const Paymentlog = require('../../models/paymentlog');
 
+const FindPaymentRecord = (query) => {
+    return new Promise((resolve) => {
+        setTimeout(async () => {
+            const Paymentlogs = await Paymentlog.find(query);
+            if (Paymentlogs.length > 0) {
+                resolve(true);
+            } else {
+                resolve(false);
+            }
+        }, 2000);
+    });
+}
+
 /**
  * @route   GET api/payments
  * @desc    Get All Paymentlogs
@@ -28,17 +41,28 @@ router.get('/', async (req, res) => {
  * @access  Public
  */
 
- router.get('/:role?/:email?', async (req, res) => {
+router.get('/:role?/:email?', async (req, res) => {
     try {
-      var query = { useremail: req.params.email, userrole: req.params.role };
-      const Paymentlogs = await Paymentlog.find(query);
-      if (!Paymentlogs) throw Error('No growers');
-  
-      res.status(200).json(Paymentlogs);
+        let Paymentlogs = [];
+        let haveFound = false;
+        //userrole: req.params.role
+        // 15 minutes ago (from now)
+        var query = { $and: [{ useremail: req.params.email, userrole: req.params.role, log_date: { $gt: new Date(Date.now() - 1000 * 60 * 15) } }] };
+        for (i = 0; i < 150; i++) {
+            haveFound = await FindPaymentRecord(query);
+            if (haveFound) {
+                Paymentlogs = await Paymentlog.find(query);
+                break;
+            }
+        }
+
+        if (!Paymentlogs) throw Error('No payments found');
+        res.status(200).json(Paymentlogs);
+
     } catch (e) {
-      res.status(400).json({ msg: e.message });
+        res.status(400).json({ msg: e.message });
     }
-  });
+});
 
 /**
  * @route   POST api/payments
@@ -46,10 +70,12 @@ router.get('/', async (req, res) => {
  * @access  Private
  */
 
-router.post('/', auth, async (req, res) => {
+router.post('/', async (req, res) => {
     const NewPaymentlog = new Paymentlog({
         userrole: req.body.userrole,
         useremail: req.body.useremail,
+        farmertopay: req.body.farmertopay,
+        phone: req.body.phone,
         sumpayed: req.body.sumpayed,
         credtype: req.body.credtype,
         currency: req.body.currency
