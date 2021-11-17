@@ -71,7 +71,8 @@ router.get('/:role?/:email?', async (req, res) => {
  */
 
 router.post('/', async (req, res) => {
-    /*
+    console.log('here');
+    console.log(req);
     const NewPaymentlog = new Paymentlog({
         userrole: req.body.pdesc,
         useremail: req.body.email,
@@ -81,16 +82,12 @@ router.post('/', async (req, res) => {
         cardtype: req.body.cardtype,
         currency: req.body.currency
     });
-    */
 
     try {
-        /*
         const Paymentlog = await NewPaymentlog.save();
         if (!Paymentlog) throw Error('תקלה בעת שמירת הלוג');
 
         res.status(200).json(Paymentlog);
-        */
-        res.status(200).json(req);
     } catch (e) {
         res.status(400).json({ msg: e.message });
     }
