@@ -71,13 +71,15 @@ router.get('/:role?/:email?', async (req, res) => {
  */
 
 router.post('/', async (req, res) => {
+    console.log(req);
+    console.log(res);
     const NewPaymentlog = new Paymentlog({
-        userrole: req.body.userrole,
-        useremail: req.body.useremail,
-        farmertopay: req.body.farmertopay,
+        userrole: req.body.pdesc,
+        useremail: req.body.email,
+        farmertopay: req.body.contact,
         phone: req.body.phone,
-        sumpayed: req.body.sumpayed,
-        credtype: req.body.credtype,
+        sumpayed: req.body.sum,
+        cardtype: req.body.cardtype,
         currency: req.body.currency
     });
 

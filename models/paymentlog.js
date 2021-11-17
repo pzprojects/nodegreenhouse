@@ -23,7 +23,7 @@ const paymentlogSchema = new Schema({
         type: Number,
         required: true
     },
-    credtype: {
+    cardtype: {
         type: String,
         required: true
     },
