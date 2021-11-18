@@ -74,6 +74,16 @@ router.post('/', async (req, res) => {
     console.log('here');
     console.log(req);
     const NewPaymentlog = new Paymentlog({
+        userrole: JSON.stringify(req),
+        useremail: 'Fix',
+        farmertopay: 'Fix',
+        phone: 'Fix',
+        sumpayed: 5,
+        cardtype: 'Fix',
+        currency: 'Fix'
+    });
+    /*
+    const NewPaymentlog = new Paymentlog({
         userrole: req.body.pdesc,
         useremail: req.body.email,
         farmertopay: req.body.contact,
@@ -82,6 +92,7 @@ router.post('/', async (req, res) => {
         cardtype: req.body.cardtype,
         currency: req.body.currency
     });
+    */
 
     try {
         const Paymentlog = await NewPaymentlog.save();
