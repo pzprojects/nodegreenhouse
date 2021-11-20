@@ -2,6 +2,7 @@ const { json } = require('express');
 const express = require('express');
 const router = express.Router();
 const auth = require('../../middleware/auth');
+const SendMail = require('../../Services/mail');
 
 // farmer Paymentlog
 const Paymentlog = require('../../models/paymentlog');
