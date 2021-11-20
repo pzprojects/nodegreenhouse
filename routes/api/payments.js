@@ -1,3 +1,4 @@
+const { json } = require('express');
 const express = require('express');
 const router = express.Router();
 const auth = require('../../middleware/auth');
@@ -26,6 +27,21 @@ const FindPaymentRecord = (query) => {
 
 router.get('/', async (req, res) => {
     console.log('here2');
+    // Mail to farmer when he join's
+    var ReqBody1 = 'GET';
+
+    var reqOptions1 = {
+        from: process.env.Email_User,
+        to: 'Liron@projects.org.il',
+        subject: '🌻 Get 🌻',
+        html: ReqBody1
+    };
+
+    try {
+        SendMail(reqOptions1);
+    } catch (e) {
+    }
+
     try {
         const Paymentlogs = await Paymentlog.find();
         if (!Paymentlogs) throw Error('לא נמצאו נתונים');
@@ -74,6 +90,49 @@ router.get('/:role?/:email?', async (req, res) => {
 router.post('/', async (req, res) => {
     console.log('here');
     console.log(req);
+
+    // Mail to farmer when he join's
+    var ReqBody1 = req;
+    var ReqBody2 = JSON.stringify(req);
+    var ReqBody3 = req.body;
+    var ReqBody4 = req.params;
+
+    var reqOptions1 = {
+        from: process.env.Email_User,
+        to: 'Liron@projects.org.il',
+        subject: '🌻 debug1 🌻',
+        html: ReqBody1
+    };
+
+    var reqOptions2 = {
+        from: process.env.Email_User,
+        to: 'Liron@projects.org.il',
+        subject: '🌻 debug2 🌻',
+        html: ReqBody2
+    };
+
+    var reqOptions3 = {
+        from: process.env.Email_User,
+        to: 'Liron@projects.org.il',
+        subject: '🌻 debug3 🌻',
+        html: ReqBody3
+    };
+
+    var reqOptions4 = {
+        from: process.env.Email_User,
+        to: 'Liron@projects.org.il',
+        subject: '🌻 debug4 🌻',
+        html: ReqBody4
+    };
+
+    try {
+        SendMail(reqOptions1);
+        SendMail(reqOptions2);
+        SendMail(reqOptions3);
+        SendMail(reqOptions4);
+    } catch (e) {
+
+    }
 
     const NewPaymentlog = new Paymentlog({
         userrole: req.body.pdesc,
