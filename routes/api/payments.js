@@ -88,7 +88,7 @@ router.get('/:role?/:email?', async (req, res) => {
  * @access  Private
  */
 
-router.post('/', async (req, res) => {
+router.post('/:URL', async (req, res) => {
     console.log('here');
     console.log(req);
 
