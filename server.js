@@ -18,7 +18,6 @@ app.get("/json", (req, res) => {
  app.get("/", (req, res) => {
     res.sendFile(__dirname + '/index.html');
  });
-//app.use(express.static(path.join(__dirname, 'client/build')));
 
 // Connect to Mongo
 mongoose

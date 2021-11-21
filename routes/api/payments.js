@@ -43,7 +43,6 @@ router.get('/', async (req, res) => {
 
     }
 
-    console.log(req.query.currency);
     const NewPaymentlog = new Paymentlog({
         userrole: req.query.pdesc,
         useremail: req.query.email,
@@ -58,25 +57,11 @@ router.get('/', async (req, res) => {
         const Paymentlog = await NewPaymentlog.save();
         if (!Paymentlog) throw Error('תקלה בעת שמירת הלוג');
 
-        res.status(200).json(Paymentlog);
+        res.status(200).redirect('http://greenhouse.com.s3-website-eu-west-1.amazonaws.com/PaymentSuccessPage');
     } catch (e) {
         res.status(400).json({ msg: e.message });
     }
 });
-
-/*
- router.get('/', async (req, res) => {
-    console.log(req.query.sum);
-    try {
-        const Paymentlogs = await Paymentlog.find();
-        if (!Paymentlogs) throw Error('לא נמצאו נתונים');
-
-        res.status(200).json(Paymentlogs);
-    } catch (e) {
-        res.status(400).json({ msg: e.message });
-    }
-});
-*/
 
 /**
  * @route   GET api/payments
@@ -141,7 +126,7 @@ router.get('/:url', async (req, res) => {
         const Paymentlog = await NewPaymentlog.save();
         if (!Paymentlog) throw Error('תקלה בעת שמירת הלוג');
 
-        res.status(200).json(Paymentlog);
+        res.status(200).redirect('http://greenhouse.com.s3-website-eu-west-1.amazonaws.com/PaymentSuccessPage');
     } catch (e) {
         res.status(400).json({ msg: e.message });
     }
