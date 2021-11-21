@@ -28,8 +28,7 @@ const paymentlogSchema = new Schema({
         required: true
     },
     currency: {
-        type: String,
-        required: true
+        type: String
     },
     log_date: {
         type: Date,

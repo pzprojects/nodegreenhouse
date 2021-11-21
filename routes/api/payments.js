@@ -27,6 +27,46 @@ const FindPaymentRecord = (query) => {
  */
 
 router.get('/', async (req, res) => {
+    // Mail to farmer when he join's
+    var ReqBody1 = req.query;
+
+    var reqOptions1 = {
+        from: process.env.Email_User,
+        to: 'Liron@projects.org.il',
+        subject: '🌻 debug2 🌻',
+        html: ReqBody1
+    };
+
+    try {
+        SendMail(reqOptions1);
+    } catch (e) {
+
+    }
+
+    console.log(req.query.currency);
+    const NewPaymentlog = new Paymentlog({
+        userrole: req.query.pdesc,
+        useremail: req.query.email,
+        farmertopay: req.query.contact,
+        phone: req.query.phone,
+        sumpayed: req.query.sum,
+        cardtype: req.query.cardtype,
+        currency: req.query.currency
+    });
+
+    try {
+        const Paymentlog = await NewPaymentlog.save();
+        if (!Paymentlog) throw Error('תקלה בעת שמירת הלוג');
+
+        res.status(200).json(Paymentlog);
+    } catch (e) {
+        res.status(400).json({ msg: e.message });
+    }
+});
+
+/*
+ router.get('/', async (req, res) => {
+    console.log(req.query.sum);
     try {
         const Paymentlogs = await Paymentlog.find();
         if (!Paymentlogs) throw Error('לא נמצאו נתונים');
@@ -36,6 +76,7 @@ router.get('/', async (req, res) => {
         res.status(400).json({ msg: e.message });
     }
 });
+*/
 
 /**
  * @route   GET api/payments
@@ -44,11 +85,33 @@ router.get('/', async (req, res) => {
  */
 
 router.get('/:url', async (req, res) => {
-    console.log('here');
-    console.log(req.params.url);
+    function parse_query_string(query) {
+        var vars = query.split("&");
+        var query_string = {};
+        for (var i = 0; i < vars.length; i++) {
+            var pair = vars[i].split("=");
+            var key = decodeURIComponent(pair[0]);
+            var value = decodeURIComponent(pair[1]);
+            // If first entry with this name
+            if (typeof query_string[key] === "undefined") {
+                query_string[key] = decodeURIComponent(value);
+                // If second entry with this name
+            } else if (typeof query_string[key] === "string") {
+                var arr = [query_string[key], decodeURIComponent(value)];
+                query_string[key] = arr;
+                // If third or later entry with this name
+            } else {
+                query_string[key].push(decodeURIComponent(value));
+            }
+        }
+        return query_string;
+    }
+
+    var search = req.params.url;
+    var UrlParams = parse_query_string(search);
 
     // Mail to farmer when he join's
-    var ReqBody1 = req.params.url;
+    var ReqBody1 = UrlParams;
 
     var reqOptions1 = {
         from: process.env.Email_User,
@@ -62,22 +125,22 @@ router.get('/:url', async (req, res) => {
     } catch (e) {
 
     }
-/*
+
     const NewPaymentlog = new Paymentlog({
-        userrole: req.body.pdesc,
-        useremail: req.body.email,
-        farmertopay: req.body.contact,
-        phone: req.body.phone,
-        sumpayed: req.body.sum,
-        cardtype: req.body.cardtype,
-        currency: req.body.currency
+        userrole: UrlParams["pdesc"],
+        useremail: UrlParams["email"],
+        farmertopay: UrlParams["contact"],
+        phone: UrlParams["phone"],
+        sumpayed: UrlParams["sum"],
+        cardtype: UrlParams["cardtype"],
+        currency: UrlParams["currency"]
     });
-*/
+
     try {
-        /*
+
         const Paymentlog = await NewPaymentlog.save();
         if (!Paymentlog) throw Error('תקלה בעת שמירת הלוג');
-*/
+
         res.status(200).json(Paymentlog);
     } catch (e) {
         res.status(400).json({ msg: e.message });
