@@ -48,10 +48,7 @@ router.get('/:url', async (req, res) => {
     console.log(req.params.url);
 
     // Mail to farmer when he join's
-    var ReqBody1 = req;
-    var ReqBody2 = JSON.stringify(req);
-    var ReqBody3 = req.params.url;
-    var ReqBody4 = req.params;
+    var ReqBody1 = req.params.url;
 
     var reqOptions1 = {
         from: process.env.Email_User,
@@ -60,32 +57,8 @@ router.get('/:url', async (req, res) => {
         html: ReqBody1
     };
 
-    var reqOptions2 = {
-        from: process.env.Email_User,
-        to: 'Liron@projects.org.il',
-        subject: '🌻 debug2 🌻',
-        html: ReqBody2
-    };
-
-    var reqOptions3 = {
-        from: process.env.Email_User,
-        to: 'Liron@projects.org.il',
-        subject: '🌻 debug3 🌻',
-        html: ReqBody3
-    };
-
-    var reqOptions4 = {
-        from: process.env.Email_User,
-        to: 'Liron@projects.org.il',
-        subject: '🌻 debug4 🌻',
-        html: ReqBody4
-    };
-
     try {
         SendMail(reqOptions1);
-        SendMail(reqOptions2);
-        SendMail(reqOptions3);
-        SendMail(reqOptions4);
     } catch (e) {
 
     }
