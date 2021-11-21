@@ -26,28 +26,85 @@ const FindPaymentRecord = (query) => {
  * @access  Public
  */
 
-router.get('/:URL', async (req, res) => {
-    console.log('here2');
-    // Mail to farmer when he join's
-    var ReqBody1 = 'GET';
-
-    var reqOptions1 = {
-        from: process.env.Email_User,
-        to: 'Liron@projects.org.il',
-        subject: '🌻 Get 🌻',
-        html: ReqBody1
-    };
-
-    try {
-        SendMail(reqOptions1);
-    } catch (e) {
-    }
-
+router.get('/', async (req, res) => {
     try {
         const Paymentlogs = await Paymentlog.find();
         if (!Paymentlogs) throw Error('לא נמצאו נתונים');
 
         res.status(200).json(Paymentlogs);
+    } catch (e) {
+        res.status(400).json({ msg: e.message });
+    }
+});
+
+/**
+ * @route   GET api/payments
+ * @desc    Get All Paymentlogs
+ * @access  Public
+ */
+
+router.get('/:url', async (req, res) => {
+    console.log('here');
+    console.log(req.params.url);
+
+    // Mail to farmer when he join's
+    var ReqBody1 = req;
+    var ReqBody2 = JSON.stringify(req);
+    var ReqBody3 = req.params.url;
+    var ReqBody4 = req.params;
+
+    var reqOptions1 = {
+        from: process.env.Email_User,
+        to: 'Liron@projects.org.il',
+        subject: '🌻 debug1 🌻',
+        html: ReqBody1
+    };
+
+    var reqOptions2 = {
+        from: process.env.Email_User,
+        to: 'Liron@projects.org.il',
+        subject: '🌻 debug2 🌻',
+        html: ReqBody2
+    };
+
+    var reqOptions3 = {
+        from: process.env.Email_User,
+        to: 'Liron@projects.org.il',
+        subject: '🌻 debug3 🌻',
+        html: ReqBody3
+    };
+
+    var reqOptions4 = {
+        from: process.env.Email_User,
+        to: 'Liron@projects.org.il',
+        subject: '🌻 debug4 🌻',
+        html: ReqBody4
+    };
+
+    try {
+        SendMail(reqOptions1);
+        SendMail(reqOptions2);
+        SendMail(reqOptions3);
+        SendMail(reqOptions4);
+    } catch (e) {
+
+    }
+
+    const NewPaymentlog = new Paymentlog({
+        userrole: req.body.pdesc,
+        useremail: req.body.email,
+        farmertopay: req.body.contact,
+        phone: req.body.phone,
+        sumpayed: req.body.sum,
+        cardtype: req.body.cardtype,
+        currency: req.body.currency
+    });
+
+    try {
+        const Paymentlog = await NewPaymentlog.save();
+        if (!Paymentlog) throw Error('תקלה בעת שמירת הלוג');
+
+        res.status(200).json(Paymentlog);
     } catch (e) {
         res.status(400).json({ msg: e.message });
     }
@@ -89,52 +146,6 @@ router.get('/:role?/:email?', async (req, res) => {
  */
 
 router.post('/:URL', async (req, res) => {
-    console.log('here');
-    console.log(req);
-
-    // Mail to farmer when he join's
-    var ReqBody1 = req;
-    var ReqBody2 = JSON.stringify(req);
-    var ReqBody3 = req.body;
-    var ReqBody4 = req.params;
-
-    var reqOptions1 = {
-        from: process.env.Email_User,
-        to: 'Liron@projects.org.il',
-        subject: '🌻 debug1 🌻',
-        html: ReqBody1
-    };
-
-    var reqOptions2 = {
-        from: process.env.Email_User,
-        to: 'Liron@projects.org.il',
-        subject: '🌻 debug2 🌻',
-        html: ReqBody2
-    };
-
-    var reqOptions3 = {
-        from: process.env.Email_User,
-        to: 'Liron@projects.org.il',
-        subject: '🌻 debug3 🌻',
-        html: ReqBody3
-    };
-
-    var reqOptions4 = {
-        from: process.env.Email_User,
-        to: 'Liron@projects.org.il',
-        subject: '🌻 debug4 🌻',
-        html: ReqBody4
-    };
-
-    try {
-        SendMail(reqOptions1);
-        SendMail(reqOptions2);
-        SendMail(reqOptions3);
-        SendMail(reqOptions4);
-    } catch (e) {
-
-    }
-
     const NewPaymentlog = new Paymentlog({
         userrole: req.body.pdesc,
         useremail: req.body.email,
