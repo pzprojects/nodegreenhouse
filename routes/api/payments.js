@@ -89,7 +89,7 @@ router.get('/:url', async (req, res) => {
     } catch (e) {
 
     }
-
+/*
     const NewPaymentlog = new Paymentlog({
         userrole: req.body.pdesc,
         useremail: req.body.email,
@@ -99,11 +99,12 @@ router.get('/:url', async (req, res) => {
         cardtype: req.body.cardtype,
         currency: req.body.currency
     });
-
+*/
     try {
+        /*
         const Paymentlog = await NewPaymentlog.save();
         if (!Paymentlog) throw Error('תקלה בעת שמירת הלוג');
-
+*/
         res.status(200).json(Paymentlog);
     } catch (e) {
         res.status(400).json({ msg: e.message });
@@ -145,13 +146,13 @@ router.get('/:role?/:email?', async (req, res) => {
  * @access  Private
  */
 
-router.post('/:URL', async (req, res) => {
+router.post('/', async (req, res) => {
     const NewPaymentlog = new Paymentlog({
-        userrole: req.body.pdesc,
-        useremail: req.body.email,
-        farmertopay: req.body.contact,
+        userrole: req.body.userrole,
+        useremail: req.body.useremail,
+        farmertopay: req.body.farmertopay,
         phone: req.body.phone,
-        sumpayed: req.body.sum,
+        sumpayed: req.body.sumpayed,
         cardtype: req.body.cardtype,
         currency: req.body.currency
     });
