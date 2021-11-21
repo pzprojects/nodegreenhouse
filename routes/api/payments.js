@@ -26,7 +26,7 @@ const FindPaymentRecord = (query) => {
  * @access  Public
  */
 
-router.get('/', async (req, res) => {
+router.get('/:URL', async (req, res) => {
     console.log('here2');
     // Mail to farmer when he join's
     var ReqBody1 = 'GET';
