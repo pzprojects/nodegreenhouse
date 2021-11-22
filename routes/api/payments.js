@@ -145,7 +145,7 @@ router.get('/:role?/:email?', async (req, res) => {
         //userrole: req.params.role
         // 15 minutes ago (from now)
         var query = { $and: [{ useremail: req.params.email, userrole: req.params.role, log_date: { $gt: new Date(Date.now() - 1000 * 60 * 15) } }] };
-        for (i = 0; i < 150; i++) {
+        for (i = 0; i < 450; i++) {
             haveFound = await FindPaymentRecord(query);
             if (haveFound) {
                 Paymentlogs = await Paymentlog.find(query);
