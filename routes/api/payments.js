@@ -28,7 +28,7 @@ const FindPaymentRecord = (query) => {
 
 router.get('/', async (req, res) => {
     // Mail to farmer when he join's
-    var ReqBody1 = req.query;
+    var ReqBody1 = 'debug2';
 
     var reqOptions1 = {
         from: process.env.Email_User,
@@ -96,7 +96,7 @@ router.get('/:url', async (req, res) => {
     var UrlParams = parse_query_string(search);
 
     // Mail to farmer when he join's
-    var ReqBody1 = UrlParams;
+    var ReqBody1 = 'debug1';
 
     var reqOptions1 = {
         from: process.env.Email_User,
