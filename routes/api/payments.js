@@ -27,21 +27,6 @@ const FindPaymentRecord = (query) => {
  */
 
 router.get('/', async (req, res) => {
-    // Mail to farmer when he join's
-    var ReqBody1 = 'debug2';
-
-    var reqOptions1 = {
-        from: process.env.Email_User,
-        to: 'Liron@projects.org.il',
-        subject: '🌻 debug2 🌻',
-        html: ReqBody1
-    };
-
-    try {
-        SendMail(reqOptions1);
-    } catch (e) {
-
-    }
 
     const NewPaymentlog = new Paymentlog({
         userrole: req.query.pdesc,
@@ -94,22 +79,6 @@ router.get('/:url', async (req, res) => {
 
     var search = req.params.url;
     var UrlParams = parse_query_string(search);
-
-    // Mail to farmer when he join's
-    var ReqBody1 = 'debug1';
-
-    var reqOptions1 = {
-        from: process.env.Email_User,
-        to: 'Liron@projects.org.il',
-        subject: '🌻 debug1 🌻',
-        html: ReqBody1
-    };
-
-    try {
-        SendMail(reqOptions1);
-    } catch (e) {
-
-    }
 
     const NewPaymentlog = new Paymentlog({
         userrole: UrlParams["pdesc"],
