@@ -23,6 +23,10 @@ const paymentlogSchema = new Schema({
         type: Number,
         required: true
     },
+    recursum: {
+        type: Number,
+        required: true
+    },
     cardtype: {
         type: String,
         required: true

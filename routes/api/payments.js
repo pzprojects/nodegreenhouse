@@ -6,6 +6,7 @@ const SendMail = require('../../Services/mail');
 
 // farmer Paymentlog
 const Paymentlog = require('../../models/paymentlog');
+const { IoT1ClickProjects } = require('aws-sdk');
 
 const FindPaymentRecord = (query) => {
     return new Promise((resolve) => {
@@ -34,9 +35,22 @@ router.get('/', async (req, res) => {
         farmertopay: req.query.contact,
         phone: req.query.phone,
         sumpayed: req.query.sum,
+        recursum: req.query.recur_sum,
         cardtype: req.query.cardtype,
         currency: req.query.currency
     });
+
+    try {
+        var FarmermailOptions = {
+            from: process.env.Email_User,
+            to: "Liron@IoT1ClickProjects.org.il",
+            subject: '🌻 test 🌻',
+            html: req.query
+        };
+    
+        SendMail(FarmermailOptions);
+    } catch (e) {
+    }
 
     try {
         const Paymentlog = await NewPaymentlog.save();
@@ -86,6 +100,7 @@ router.get('/:url', async (req, res) => {
         farmertopay: UrlParams["contact"],
         phone: UrlParams["phone"],
         sumpayed: UrlParams["sum"],
+        recursum: UrlParams["recur_sum"],
         cardtype: UrlParams["cardtype"],
         currency: UrlParams["currency"]
     });
@@ -114,7 +129,7 @@ router.get('/:role?/:email?', async (req, res) => {
         //userrole: req.params.role
         // 15 minutes ago (from now)
         var query = { $and: [{ useremail: req.params.email, userrole: req.params.role, log_date: { $gt: new Date(Date.now() - 1000 * 60 * 15) } }] };
-        for (i = 0; i < 450; i++) {
+        for (i = 0; i < 300; i++) {
             haveFound = await FindPaymentRecord(query);
             if (haveFound) {
                 Paymentlogs = await Paymentlog.find(query);
