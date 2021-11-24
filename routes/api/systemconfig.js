@@ -26,7 +26,7 @@ router.get('/', async (req, res) => {
 // @desc    Update systemconfig
 // @access  Public
 router.post('/:id', auth, (req, res) => {
-  const { hamamadefaultsize, plan1name, plan1cost, plan2name, plan2cost, plan3name, plan3cost, fieldcropplanname, fieldcropplancost } = req.body;
+  const { hamamadefaultsize, plan1name, plan1cost, plan2name, plan2cost, plan3name, plan3cost, fieldcropplanname, fieldcropplancost, farmerplancost } = req.body;
 
   System.findById(req.params.id, function (err, system) {
 
@@ -47,6 +47,7 @@ router.post('/:id', auth, (req, res) => {
       system.plan3cost = plan3cost;
       system.fieldcropplanname = fieldcropplanname;
       system.fieldcropplancost = fieldcropplancost;
+      system.farmerplancost = farmerplancost;
 
       system.save();
       if (!system) throw Error('תקלה בעת עדכון נתוני מערכת');

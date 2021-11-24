@@ -58,6 +58,8 @@ app.use('/api/myshopitems', require('./routes/api/myshopitems'));
 app.use('/api/veglanguages', require('./routes/api/veglanguages'));
 app.use('/api/updateveglanguage', require('./routes/api/updateveglanguage'));
 app.use('/api/payments', require('./routes/api/payments'));
+app.use('/api/userexist', require('./routes/api/userexist'));
+app.use('/api/sendpaymentdata', require('./routes/api/sendpaymentdata'));
 
 const port = process.env.PORT || 5000;
 

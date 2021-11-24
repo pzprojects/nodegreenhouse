@@ -1,12 +1,9 @@
-const { json } = require('express');
 const express = require('express');
 const router = express.Router();
 const auth = require('../../middleware/auth');
-const SendMail = require('../../Services/mail');
 
-// farmer Paymentlog
+// Paymentlog
 const Paymentlog = require('../../models/paymentlog');
-const { IoT1ClickProjects } = require('aws-sdk');
 
 const FindPaymentRecord = (query) => {
     return new Promise((resolve) => {
@@ -39,18 +36,6 @@ router.get('/', async (req, res) => {
         cardtype: req.query.cardtype,
         currency: req.query.currency
     });
-
-    try {
-        var FarmermailOptions = {
-            from: process.env.Email_User,
-            to: "Liron@IoT1ClickProjects.org.il",
-            subject: '🌻 test 🌻',
-            html: req.query
-        };
-    
-        SendMail(FarmermailOptions);
-    } catch (e) {
-    }
 
     try {
         const Paymentlog = await NewPaymentlog.save();

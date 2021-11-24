@@ -39,6 +39,10 @@ const SystemSchema = new Schema({
     type: String,
     required: true
   },
+  farmerplancost: {
+    type: String,
+    required: true
+  },
   date: {
     type: Date,
     default: Date.now
